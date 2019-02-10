@@ -2,24 +2,21 @@ package main
 
 import (
 	"log"
-	"time"
+	"os"
 
-	telebot "gopkg.in/tucnak/telebot.v2"
+	"github.com/yanzay/tbot"
 )
 
 func main() {
-	b, err := telebot.NewBot(telebot.Settings{
-		Token:  "776702570:AAHnERHvgIwVFnc5M5WTXwJxCjfCSBoC8kg",
-		Poller: &telebot.LongPoller{Timeout: 10 * time.Second},
-	})
+	bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"))
 	if err != nil {
 		log.Fatal(err)
-		return
 	}
-
-	b.Handle("/hello", func(m *telebot.Message) {
-		b.Send(m.Sender, "hello world")
-	})
-
-	b.Start()
+	bot.Handle("/update", "42")
+	bot.Handle("/help", "42")
+	bot.Handle("/start", "42")
+	bot.Handle("/infoluno", "42")
+	bot.Handle("/fee", "42")
+	bot.Handle("/convert", "42")
+	bot.ListenAndServe()
 }

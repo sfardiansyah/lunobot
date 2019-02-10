@@ -1,23 +1,49 @@
 {
-  "comment": "",
-  "ignore": "test",
-  "package": [
-    {
-      "checksumSHA1": "0H/VjT8w1CB702qWpbYMqr65Mf0=",
-      "path": "github.com/pkg/errors",
-      "revision": "ffb6e22f01932bf7ac35e0bad9be11f01d1c8685",
-      "revisionTime": "2019-01-09T06:16:28Z"
-    },
-    {
-      "checksumSHA1": "S5xEYafeUaSO1D46h7uSeCgOb9o=",
-      "path": "gopkg.in/tucnak/telebot.v2",
-      "revision": "7eeea8f32a9b6cba2a6fb9d5b8e941ca1d2717c2",
-      "revisionTime": "2019-01-28T00:11:10Z"
-    }
-  ],
-  "rootPath": "github.com/sfardiansyah/lunobot",
-  "heroku": {
-    "install": ["./cmd/..."],
-    "goVersion": "1.11.4"
-  }
+	"comment": "",
+	"heroku": {
+		"goVersion": "1.11.4",
+		"install": [
+			"./cmd/..."
+		]
+	},
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "ViY5wN6KsQIbRVCCCDpL/P7xNuc=",
+			"path": "github.com/go-telegram-bot-api/telegram-bot-api",
+			"revision": "ec221ba9ea458cd5386c35dd90af04b8a895f8eb",
+			"revisionTime": "2018-12-25T21:56:58Z"
+		},
+		{
+			"checksumSHA1": "t8jzPFIv4DNACv+cuZoigNmjPLQ=",
+			"path": "github.com/technoweenie/multipartstreamer",
+			"revision": "a90a01d73ae432e2611d178c18367fbaa13e0154",
+			"revisionTime": "2013-10-20T00:18:33Z"
+		},
+		{
+			"checksumSHA1": "uVrl2uusMCI0K+07vazfTNncP5M=",
+			"path": "github.com/yanzay/log",
+			"revision": "87352bb235060cca8427c8f9fdd68c83b38ba461",
+			"revisionTime": "2016-04-19T14:48:09Z"
+		},
+		{
+			"checksumSHA1": "B6AhfMmG35loc+pMrCbOE22+4BM=",
+			"path": "github.com/yanzay/tbot",
+			"revision": "947e188b1c8c9cf5a5a7f157561df22a6525164c",
+			"revisionTime": "2018-12-15T20:28:16Z"
+		},
+		{
+			"checksumSHA1": "EXVaofrZ/s4bH9CKYQNroz4EOFg=",
+			"path": "github.com/yanzay/tbot/internal/adapter",
+			"revision": "947e188b1c8c9cf5a5a7f157561df22a6525164c",
+			"revisionTime": "2018-12-15T20:28:16Z"
+		},
+		{
+			"checksumSHA1": "Ip26OvLfKOEoGQVS6EJv45mBmeU=",
+			"path": "github.com/yanzay/tbot/model",
+			"revision": "947e188b1c8c9cf5a5a7f157561df22a6525164c",
+			"revisionTime": "2018-12-15T20:28:16Z"
+		}
+	],
+	"rootPath": "github.com/sfardiansyah/lunobot"
 }
