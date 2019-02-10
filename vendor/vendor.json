@@ -1,0 +1,20 @@
+{
+  "comment": "",
+  "ignore": "test",
+  "package": [
+    {
+      "checksumSHA1": "0H/VjT8w1CB702qWpbYMqr65Mf0=",
+      "path": "github.com/pkg/errors",
+      "revision": "ffb6e22f01932bf7ac35e0bad9be11f01d1c8685",
+      "revisionTime": "2019-01-09T06:16:28Z"
+    },
+    {
+      "checksumSHA1": "S5xEYafeUaSO1D46h7uSeCgOb9o=",
+      "path": "gopkg.in/tucnak/telebot.v2",
+      "revision": "7eeea8f32a9b6cba2a6fb9d5b8e941ca1d2717c2",
+      "revisionTime": "2019-01-28T00:11:10Z"
+    }
+  ],
+  "rootPath": "github.com/sfardiansyah/lunobot",
+  "install": "./cmd/..."
+}
