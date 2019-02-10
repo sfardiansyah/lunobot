@@ -13,12 +13,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	bot.Handle("/update", "42")
-	bot.Handle("/help", "42")
-	bot.Handle("/start", "42")
-	bot.Handle("/infoluno", "42")
-	bot.Handle("/fee", "42")
-	bot.Handle("/convert", "42")
+	bot.Handle("/update", "update")
+	bot.Handle("/help", "help")
+	bot.Handle("/start", "start")
+	bot.Handle("/infoluno", "infoluno")
+	bot.Handle("/fee", "fee")
+	bot.Handle("/convert", "convert")
 	bot.ListenAndServe()
 	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
