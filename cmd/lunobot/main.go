@@ -9,9 +9,7 @@ import (
 
 func main() {
 	b, err := telebot.NewBot(telebot.Settings{
-		Token: "776702570:AAHnERHvgIwVFnc5M5WTXwJxCjfCSBoC8kg",
-		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
-		URL:    "https://luno-bot.herokuapp.com",
+		Token:  "776702570:AAHnERHvgIwVFnc5M5WTXwJxCjfCSBoC8kg",
 		Poller: &telebot.LongPoller{Timeout: 10 * time.Second},
 	})
 	if err != nil {
