@@ -17,7 +17,7 @@
   ],
   "rootPath": "github.com/sfardiansyah/lunobot",
   "heroku": {
-    "install": "./cmd/...",
+    "install": ["./cmd/..."],
     "goVersion": "1.11.4"
   }
 }
