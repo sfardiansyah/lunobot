@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/yanzay/tbot"
@@ -19,4 +20,5 @@ func main() {
 	bot.Handle("/fee", "42")
 	bot.Handle("/convert", "42")
 	bot.ListenAndServe()
+	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
