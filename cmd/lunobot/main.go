@@ -91,7 +91,6 @@ func getHiLo(pair string) (string, string) {
 	p := new(PriceCandle)
 	date := time.Now().Add(-24 * time.Hour).Unix()
 
-	log.Println(lunoChartCandleURL + "?pair=" + pair + "&since=" + strconv.FormatInt(date, 10))
 	r, err := http.Get(lunoChartCandleURL + "?pair=" + pair + "&since=" + strconv.FormatInt(date, 10))
 	if err != nil {
 		log.Fatal(err)
@@ -101,9 +100,8 @@ func getHiLo(pair string) (string, string) {
 		log.Fatal(err)
 	}
 
-	var hi, lo float64
+	var hi, lo float64 = 0, p.Candles[0].Low
 	for _, candle := range p.Candles {
-		log.Println(candle.High, candle.Low)
 		if candle.High > hi {
 			hi = candle.High
 		}
