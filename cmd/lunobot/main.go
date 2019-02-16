@@ -101,6 +101,7 @@ func getHiLo(pair string) (string, string) {
 
 	var hi, lo float64
 	for _, candle := range p.Candles {
+		log.Println(candle.High, candle.Low)
 		if candle.High > hi {
 			hi = candle.High
 		}
@@ -109,7 +110,6 @@ func getHiLo(pair string) (string, string) {
 		}
 	}
 
-	log.Println(hi, lo)
 	return humanize.Commaf(hi), humanize.Commaf(lo)
 }
 
