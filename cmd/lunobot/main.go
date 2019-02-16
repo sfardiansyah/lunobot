@@ -70,7 +70,7 @@ func main() {
 		replyWithInline(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
 	})
 
-	// bot.HandleDefault(defaultHandler)
+	bot.HandleDefault(defaultHandler)
 
 	if err := bot.ListenAndServe(); err != nil {
 		log.Fatal(err)
@@ -161,12 +161,9 @@ func replyWithInline(m *tbot.Message, t, helper string) {
 	m.ReplyInlineKeyboard(str[0], btn, tbot.WithURLInlineButtons)
 }
 
-// func defaultHandler(m *tbot.Message) {
-// 	// if len(m.Vars["new_chat_members"]) > 0 {
-// 	// 	m.Reply("Halo!")
-// 	// }
-// 	m.Reply(m.Data)
-// }
+func defaultHandler(m *tbot.Message) {
+	log.Println(m.ChatID, m.ChatType)
+}
 
 func startHandler(m *tbot.Message) {
 	if m.ChatType == model.ChatTypePrivate {
