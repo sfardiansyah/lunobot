@@ -98,7 +98,9 @@ func getHiLo(pair string) (string, string) {
 		log.Fatal(err)
 	}
 
-	json.NewDecoder(r.Body).Decode(p)
+	if err = json.NewDecoder(r.Body).Decode(p); err != nil {
+		log.Fatal(err)
+	}
 
 	var hi, lo float64
 	for _, candle := range p.Candles {
