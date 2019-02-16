@@ -84,7 +84,7 @@ func main() {
 }
 
 func infoHandler(m *tbot.Message) {
-	btc := getPrice("BTCIDR")
+	btc := getPrice("XBTIDR")
 	eth := getPrice("ETHIDR")
 
 	m.Replyf(fileReader("assets/info.txt"), btc, eth)
