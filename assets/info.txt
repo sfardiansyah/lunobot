@@ -1,4 +1,4 @@
-#InfoLuno untuk Bitcoin dan Ethereum @(time)____ 
+#InfoLuno untuk Bitcoin dan Ethereum @ %s 
 
 BTC
 Harga: IDR %s
@@ -12,4 +12,4 @@ Volume 24 jam terakhir: %s ETH
 High: IDR %s
 Low: IDR %s
 
-Beli dan jual BTC dan ETH Anda di Luno: https://www.luno.com/wallet/accounts
+Beli dan jual BTC dan ETH Anda di Luno:||https://www.luno.com/wallet/accounts

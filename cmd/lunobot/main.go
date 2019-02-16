@@ -75,6 +75,7 @@ func main() {
 }
 
 func infoHandler(m *tbot.Message) {
+	date := time.Now().Format(time.RFC3339)
 	btc := getPrice("XBTIDR")
 	eth := getPrice("ETHIDR")
 	btcH, btcL := getHiLo("XBTIDR")
@@ -82,7 +83,7 @@ func infoHandler(m *tbot.Message) {
 	btcVol := getVolume("XBTIDR")
 	ethVol := getVolume("ETHXBT")
 
-	m.Replyf(fileReader("assets/info.txt"), btc, btcVol, btcH, btcL, eth, ethVol, ethH, ethL)
+	m.Replyf(fileReader("assets/info.txt"), date, btc, btcVol, btcH, btcL, eth, ethVol, ethH, ethL)
 }
 
 func getVolume(pair string) string {
