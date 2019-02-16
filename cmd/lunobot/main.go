@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"))
+	bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
 	if err != nil {
 		log.Fatal(err)
 	}
