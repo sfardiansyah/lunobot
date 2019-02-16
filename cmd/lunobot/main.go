@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/yanzay/tbot/model"
+
 	"github.com/yanzay/tbot"
 )
 
@@ -14,19 +16,30 @@ func main() {
 		log.Fatal(err)
 	}
 
-	b, err := ioutil.ReadFile("assets/help.txt") // just pass the file name
-	if err != nil {
-		log.Println(err)
-	}
-
 	bot.Handle("/update", "update")
-	bot.Handle("/help", string(b))
-	bot.Handle("/start", "start")
+	bot.Handle("/help", fileReader("assets/help.txt"))
+	bot.HandleFunc("/start", startHandler)
 	bot.Handle("/infoluno", "infoluno")
-	bot.Handle("/fee", "fee")
-	bot.Handle("/convert", "convert")
+	bot.Handle("/fee", fileReader("assets/fee.txt"))
+	bot.Handle("/convert", fileReader("assets/convert.txt"))
 
 	if err := bot.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func startHandler(m *tbot.Message) {
+	if m.ChatType == model.ChatTypePrivate {
+		m.Reply(fileReader("assets/start.txt"))
+		m.Reply(fileReader("assets/help.txt"))
+	}
+}
+
+func fileReader(dir string) string {
+	b, err := ioutil.ReadFile(dir)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return string(b)
 }

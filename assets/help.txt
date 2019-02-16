@@ -1,4 +1,5 @@
 Adapun beberapa command yang bisa dilakukan oleh LunoBot yaitu:
+
 /help - Daftar commands untuk LunoBot
 /update - Berita terbaru tentang Luno dan Bitcoin
 /infoluno - Informasi terbaru tentang harga, volume, dan spread Bitcoin dan Ethereum
