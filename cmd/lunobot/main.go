@@ -14,7 +14,6 @@ import (
 
 	humanize "github.com/dustin/go-humanize"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
-	"github.com/sfardiansyah/lunobot/pkg/http/rest"
 	"github.com/sfardiansyah/tbot"
 	"github.com/sfardiansyah/tbot/model"
 )
@@ -66,13 +65,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	h := rest.Handler(app)
-	// updates := app.ListenForWebhook("/")
-	go http.ListenAndServe(":"+os.Getenv("PORT"), h)
+	// h := rest.Handler(app)
+	updates := app.ListenForWebhook("/")
+	// go http.ListenAndServe(":"+os.Getenv("PORT"), h)
 
-	// for update := range updates {
-	// 	log.Printf("%+v\n", update.Message)
-	// }
+	for update := range updates {
+		log.Printf("%+v\n", update.Message)
+	}
 
 	// bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
 	// if err != nil {
