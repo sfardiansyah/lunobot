@@ -109,6 +109,7 @@ func getHiLo(pair string) (string, string) {
 		}
 	}
 
+	log.Println(hi, lo)
 	return humanize.Commaf(hi), humanize.Commaf(lo)
 }
 
