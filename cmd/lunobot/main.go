@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/yanzay/tbot/model"
-
+	humanize "github.com/dustin/go-humanize"
 	"github.com/yanzay/tbot"
+	"github.com/yanzay/tbot/model"
 )
 
 // PriceCandle ...
@@ -84,8 +84,8 @@ func main() {
 }
 
 func infoHandler(m *tbot.Message) {
-	btc := getPrice("XBTIDR")
-	eth := getPrice("ETHIDR")
+	btc := humanize.Commaf(getPrice("XBTIDR"))
+	eth := humanize.Commaf(getPrice("ETHIDR"))
 
 	m.Replyf(fileReader("assets/info.txt"), btc, eth)
 }
@@ -104,9 +104,6 @@ func getPrice(pair string) float64 {
 
 	var price float64
 	for _, pair := range p.Pairs {
-		log.Println(pair.BaseCode)
-		log.Println(pair.CounterCode)
-		log.Println(pair.Price)
 		if pair.BaseCode == b && pair.CounterCode == c {
 			price = pair.Price
 		}

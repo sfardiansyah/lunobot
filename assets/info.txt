@@ -1,13 +1,13 @@
 #InfoLuno untuk Bitcoin dan Ethereum @(time)____ 
 
 BTC
-Harga: Rp %f
+Harga: IDR %s
 Volume 24 jam terakhir: ___ BTC
 High: ___
 Low: ___
 
 ETH
-Harga: Rp %f
+Harga: IDR %s
 Volume 24 jam terakhir: ___ ETH
 High: ___
 Low: ___
