@@ -32,7 +32,7 @@ func main() {
 }
 
 func feeHandler(m *tbot.Message) {
-	buttons := []map[string]string{{"Fee": "https://www.luno.com/id/countries/ID"}}
+	buttons := []map[string]string{map[string]string{"Fee": "https://www.luno.com/id/countries/ID"}}
 	// buttons := make([]map[string]string, 1, 1)
 	// buttons[0]["fee"] = "https://www.luno.com/id/countries/ID"
 	// buttons := [][]string{
@@ -40,7 +40,7 @@ func feeHandler(m *tbot.Message) {
 	// 	{"Another", "Row"},
 	// }
 	// m.ReplyKeyboard("Buttons example", buttons)
-	m.ReplyInlineKeyboard(fileReader("assets/fee.txt"), buttons)
+	m.ReplyInlineKeyboard(fileReader("assets/fee.txt"), buttons, tbot.WithURLInlineButtons)
 }
 
 // func defaultHandler(m *tbot.Message) {
