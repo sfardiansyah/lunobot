@@ -1,15 +1,62 @@
 package main
 
 import (
+	"encoding/json"
 	"html"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/yanzay/tbot/model"
 
 	"github.com/yanzay/tbot"
+)
+
+// PriceCandle ...
+type PriceCandle struct {
+	Pair     string   `json:"pair"`
+	Duration uint16   `json:"duration"`
+	Candles  []Candle `json:"candles"`
+}
+
+// Candle ...
+type Candle struct {
+	Timestamp time.Time `json:"timestamp"`
+	Open      float32   `json:"open"`
+	Close     float32   `json:"close"`
+	High      float32   `json:"high"`
+	Low       float32   `json:"low"`
+	Volume    float32   `json:"volume"`
+}
+
+// Ticker ...
+type Ticker struct {
+	Ask       float32   `json:"ask"`
+	Timestamp time.Time `json:"timestamp"`
+	Bid       float32   `json:"bid"`
+	Volume    float32   `json:"rolling_24_hour_volume"`
+	LastTrade float32   `json:"last_trade"`
+}
+
+// PairResponse ...
+type PairResponse struct {
+	Pairs []Pair `json:"availablePairs"`
+}
+
+// Pair ...
+type Pair struct {
+	BaseCode    string  `json:"baseCode"`
+	CounterCode string  `json:"counterCode"`
+	Price       float32 `json:"price"`
+}
+
+const (
+	lunoAPIURL         = "https://api.mybitx.com/api/1/ticker"
+	lunoPriceChartURL  = "https://www.luno.com/ajax/1/price_chart"
+	lunoChartCandleURL = "https://www.luno.com/ajax/1/charts_candles"
 )
 
 func main() {
@@ -20,7 +67,7 @@ func main() {
 
 	bot.Handle("/update", "update")
 	bot.Handle("/help", fileReader("assets/help.txt"))
-	bot.Handle("/infoluno", "infoluno")
+	bot.HandleFunc("/infoluno", infoHandler)
 	bot.HandleFunc("/start", startHandler)
 	bot.HandleFunc("/fee", func(m *tbot.Message) {
 		feeHandler(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
@@ -34,6 +81,35 @@ func main() {
 	if err := bot.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func infoHandler(m *tbot.Message) {
+	btc := getPrice("BTCIDR")
+	eth := getPrice("ETHIDR")
+
+	m.Replyf(fileReader("assets/info.txt"), btc, eth)
+}
+
+func getPrice(pair string) float32 {
+	p := new(PairResponse)
+	b := pair[:3]
+	c := pair[3:]
+
+	r, err := http.Get(lunoPriceChartURL + "?currency=" + pair)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	json.NewDecoder(r.Body).Decode(p)
+
+	var price float32
+	for _, pair := range p.Pairs {
+		if pair.BaseCode == b && pair.CounterCode == c {
+			price = pair.Price
+		}
+	}
+
+	return price
 }
 
 func feeHandler(m *tbot.Message, t, helper string) {

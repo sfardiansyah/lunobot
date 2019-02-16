@@ -1,0 +1,15 @@
+#InfoLuno untuk Bitcoin dan Ethereum @(time)____ 
+
+BTC
+Harga: Rp %g
+Volume 24 jam terakhir: ___ BTC
+High: ___
+Low: ___
+
+ETH
+Harga: Rp %g
+Volume 24 jam terakhir: ___ ETH
+High: ___
+Low: ___
+
+Beli dan jual BTC dan ETH Anda di Luno: https://www.luno.com/wallet/accounts
