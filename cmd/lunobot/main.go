@@ -69,7 +69,7 @@ func main() {
 	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 
 	for update := range updates {
-		log.Printf("%+v\n", update)
+		log.Printf("%+v\n", update.Message)
 	}
 
 	// bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
