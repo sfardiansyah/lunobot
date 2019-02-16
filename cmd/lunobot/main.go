@@ -60,11 +60,18 @@ func main() {
 
 	app.Debug = true
 
-	_, err = app.SetWebhook(tgbotapi.NewWebhook("https://luno-bot.herokuapp.com:443"))
+	info, err := app.GetWebhookInfo()
 	if err != nil {
 		log.Fatal(err)
 	}
+	if !info.IsSet() {
+		_, err = app.SetWebhook(tgbotapi.NewWebhook("https://luno-bot.herokuapp.com:443"))
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 
+	// h := rest.Handler(app)
 	updates := app.ListenForWebhook("/")
 	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 
