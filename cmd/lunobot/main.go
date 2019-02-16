@@ -75,7 +75,9 @@ func main() {
 }
 
 func infoHandler(m *tbot.Message) {
-	date := time.Now().Format(time.RFC3339)
+	idTime, _ := time.LoadLocation("Asia/Jakarta")
+	date := time.Now().In(idTime).Format(time.RFC1123)
+
 	btc := getPrice("XBTIDR")
 	eth := getPrice("ETHIDR")
 	btcH, btcL := getHiLo("XBTIDR")
