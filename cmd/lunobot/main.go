@@ -87,8 +87,6 @@ func infoHandler(m *tbot.Message) {
 	btc := getPrice("BTCIDR")
 	eth := getPrice("ETHIDR")
 
-	log.Println(btc)
-	log.Println(eth)
 	m.Replyf(fileReader("assets/info.txt"), btc, eth)
 }
 
@@ -106,6 +104,9 @@ func getPrice(pair string) float32 {
 
 	var price float32
 	for _, pair := range p.Pairs {
+		log.Println(pair.BaseCode)
+		log.Println(pair.CounterCode)
+		log.Println(pair.Price)
 		if pair.BaseCode == b && pair.CounterCode == c {
 			price = pair.Price
 		}
