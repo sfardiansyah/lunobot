@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html"
 	"io/ioutil"
 	"log"
 	"os"
@@ -41,5 +42,5 @@ func fileReader(dir string) string {
 		log.Println(err)
 	}
 
-	return string(b)
+	return html.UnescapeString(string(b))
 }
