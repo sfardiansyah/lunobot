@@ -1,0 +1,7 @@
+Adapun beberapa command yang bisa dilakukan oleh LunoBot yaitu:
+/help - Daftar commands untuk LunoBot
+/update - Berita terbaru tentang Luno dan Bitcoin
+/infoluno - Informasi terbaru tentang harga, volume, dan spread Bitcoin dan Ethereum
+/fee - Biaya yang dikenakan Luno untuk transaksi
+/convert - Konversi nilai aset Anda ke Rupiah dan sebaliknya
+/faq - Pertanyaan yang paling sering muncul

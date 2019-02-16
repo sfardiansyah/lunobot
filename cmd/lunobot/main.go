@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -12,8 +13,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	b, err := ioutil.ReadFile("../../assets/help.txt") // just pass the file name
+	if err != nil {
+		log.Println(err)
+	}
+
 	bot.Handle("/update", "update")
-	bot.Handle("/help", "help")
+	bot.Handle("/help", string(b))
 	bot.Handle("/start", "start")
 	bot.Handle("/infoluno", "infoluno")
 	bot.Handle("/fee", "fee")
@@ -22,5 +29,4 @@ func main() {
 	if err := bot.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
-	// http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
