@@ -67,7 +67,7 @@ func main() {
 
 	// h := rest.Handler(app)
 	updates := app.ListenForWebhook("/")
-	// go http.ListenAndServe(":"+os.Getenv("PORT"), h)
+	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 
 	for update := range updates {
 		log.Printf("%+v\n", update.Message)
