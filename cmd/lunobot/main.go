@@ -14,7 +14,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	b, err := ioutil.ReadFile("../../assets/help.txt") // just pass the file name
+	b, err := ioutil.ReadFile("assets/help.txt") // just pass the file name
 	if err != nil {
 		log.Println(err)
 	}
