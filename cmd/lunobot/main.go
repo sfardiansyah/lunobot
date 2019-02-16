@@ -13,6 +13,7 @@ import (
 	"time"
 
 	humanize "github.com/dustin/go-humanize"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/sfardiansyah/tbot"
 	"github.com/sfardiansyah/tbot/model"
 )
@@ -52,29 +53,48 @@ const (
 )
 
 func main() {
-	bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
+	app, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	bot.Handle("/update", "update")
-	bot.Handle("/help", fileReader("assets/help.txt"))
-	bot.HandleFunc("/infoluno", func(m *tbot.Message) {
-		replyWithInline(m, getInfo(), "Buka LUNO Wallet")
-	})
-	bot.HandleFunc("/start", startHandler)
-	bot.HandleFunc("/fee", func(m *tbot.Message) {
-		replyWithInline(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
-	})
-	bot.HandleFunc("/convert", func(m *tbot.Message) {
-		replyWithInline(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
-	})
+	app.Debug = true
 
-	bot.HandleDefault(defaultHandler)
-
-	if err := bot.ListenAndServe(); err != nil {
+	_, err = app.SetWebhook(tgbotapi.NewWebhook("https://luno-bot.herokuapp.com:" + os.Getenv("PORT")))
+	if err != nil {
 		log.Fatal(err)
 	}
+
+	updates := app.ListenForWebhook("/")
+	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+
+	for update := range updates {
+		log.Printf("%+v\n", update)
+	}
+
+	// bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// bot.Handle("/update", "update")
+	// bot.Handle("/help", fileReader("assets/help.txt"))
+	// bot.HandleFunc("/infoluno", func(m *tbot.Message) {
+	// 	replyWithInline(m, getInfo(), "Buka LUNO Wallet")
+	// })
+	// bot.HandleFunc("/start", startHandler)
+	// bot.HandleFunc("/fee", func(m *tbot.Message) {
+	// 	replyWithInline(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
+	// })
+	// bot.HandleFunc("/convert", func(m *tbot.Message) {
+	// 	replyWithInline(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
+	// })
+
+	// bot.HandleDefault(defaultHandler)
+
+	// if err := bot.ListenAndServe(); err != nil {
+	// 	log.Fatal(err)
+	// }
 }
 
 func getInfo() string {
