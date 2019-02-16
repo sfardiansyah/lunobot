@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/yanzay/tbot"
@@ -19,6 +18,9 @@ func main() {
 	bot.Handle("/infoluno", "infoluno")
 	bot.Handle("/fee", "fee")
 	bot.Handle("/convert", "convert")
-	bot.ListenAndServe()
-	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+
+	if err := bot.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
+	// http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 }
