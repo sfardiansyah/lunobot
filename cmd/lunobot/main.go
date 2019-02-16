@@ -23,9 +23,8 @@ type PriceCandle struct {
 
 // Candle ...
 type Candle struct {
-	Timestamp time.Time `json:"timestamp"`
-	High      float64   `json:"high,string"`
-	Low       float64   `json:"low,string"`
+	High float64 `json:"high,string"`
+	Low  float64 `json:"low,string"`
 }
 
 // Ticker ...
