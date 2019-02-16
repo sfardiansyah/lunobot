@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/yanzay/tbot/model"
 
@@ -21,7 +22,9 @@ func main() {
 	bot.Handle("/help", fileReader("assets/help.txt"))
 	bot.HandleFunc("/start", startHandler)
 	bot.Handle("/infoluno", "infoluno")
-	bot.HandleFunc("/fee", feeHandler)
+	bot.HandleFunc("/fee", func(m *tbot.Message) {
+		feeHandler(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
+	})
 	bot.Handle("/convert", fileReader("assets/convert.txt"))
 
 	// bot.HandleDefault(defaultHandler)
@@ -31,16 +34,11 @@ func main() {
 	}
 }
 
-func feeHandler(m *tbot.Message) {
-	buttons := []map[string]string{map[string]string{"Fee": "https://www.luno.com/id/countries/ID"}}
-	// buttons := make([]map[string]string, 1, 1)
-	// buttons[0]["fee"] = "https://www.luno.com/id/countries/ID"
-	// buttons := [][]string{
-	// 	{"Some", "Test", "Buttons"},
-	// 	{"Another", "Row"},
-	// }
-	// m.ReplyKeyboard("Buttons example", buttons)
-	m.ReplyInlineKeyboard(fileReader("assets/fee.txt"), buttons, tbot.WithURLInlineButtons)
+func feeHandler(m *tbot.Message, t, helper string) {
+	str := strings.Split(t, "||")
+	btn := []map[string]string{map[string]string{helper: str[1]}}
+
+	m.ReplyInlineKeyboard(str[0], btn, tbot.WithURLInlineButtons)
 }
 
 // func defaultHandler(m *tbot.Message) {
