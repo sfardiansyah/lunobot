@@ -21,22 +21,28 @@ func main() {
 	bot.Handle("/help", fileReader("assets/help.txt"))
 	bot.HandleFunc("/start", startHandler)
 	bot.Handle("/infoluno", "infoluno")
-	bot.Handle("/fee", fileReader("assets/fee.txt"))
+	bot.HandleFunc("/fee", feeHandler)
 	bot.Handle("/convert", fileReader("assets/convert.txt"))
 
-	bot.HandleDefault(defaultHandler)
+	// bot.HandleDefault(defaultHandler)
 
 	if err := bot.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func defaultHandler(m *tbot.Message) {
-	// if len(m.Vars["new_chat_members"]) > 0 {
-	// 	m.Reply("Halo!")
-	// }
-	m.Reply(m.Data)
+func feeHandler(m *tbot.Message) {
+	buttons := make([]map[string]string, 1, 1)
+	buttons[0]["fee"] = "https://www.luno.com/id/countries/ID"
+	m.ReplyInlineKeyboard(fileReader("assets/fee.txt"), buttons)
 }
+
+// func defaultHandler(m *tbot.Message) {
+// 	// if len(m.Vars["new_chat_members"]) > 0 {
+// 	// 	m.Reply("Halo!")
+// 	// }
+// 	m.Reply(m.Data)
+// }
 
 func startHandler(m *tbot.Message) {
 	if m.ChatType == model.ChatTypePrivate {
