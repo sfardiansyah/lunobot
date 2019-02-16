@@ -162,6 +162,7 @@ func replyWithInline(m *tbot.Message, t, helper string) {
 }
 
 func defaultHandler(m *tbot.Message) {
+	m.Reply(m.Text())
 	log.Println(m.ChatID, m.ChatType)
 }
 
