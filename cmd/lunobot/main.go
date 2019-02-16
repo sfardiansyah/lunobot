@@ -34,11 +34,11 @@ type Candle struct {
 
 // Ticker ...
 type Ticker struct {
-	Ask       float32   `json:"ask"`
+	Ask       float64   `json:"ask,string"`
 	Timestamp time.Time `json:"timestamp"`
-	Bid       float32   `json:"bid"`
-	Volume    float32   `json:"rolling_24_hour_volume"`
-	LastTrade float32   `json:"last_trade"`
+	Bid       float64   `json:"bid,string"`
+	Volume    float64   `json:"rolling_24_hour_volume,string"`
+	LastTrade float64   `json:"last_trade,string"`
 }
 
 // PairResponse ...
@@ -50,7 +50,7 @@ type PairResponse struct {
 type Pair struct {
 	BaseCode    string  `json:"baseCode"`
 	CounterCode string  `json:"counterCode"`
-	Price       float32 `json:"price,string"`
+	Price       float64 `json:"price,string"`
 }
 
 const (
@@ -90,7 +90,7 @@ func infoHandler(m *tbot.Message) {
 	m.Replyf(fileReader("assets/info.txt"), btc, eth)
 }
 
-func getPrice(pair string) float32 {
+func getPrice(pair string) float64 {
 	p := new(PairResponse)
 	b := pair[:3]
 	c := pair[3:]
@@ -102,7 +102,7 @@ func getPrice(pair string) float32 {
 
 	json.NewDecoder(r.Body).Decode(p)
 
-	var price float32
+	var price float64
 	for _, pair := range p.Pairs {
 		log.Println(pair.BaseCode)
 		log.Println(pair.CounterCode)
