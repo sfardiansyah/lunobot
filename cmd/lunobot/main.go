@@ -170,7 +170,7 @@ func replyWithInline(m *tbot.Message, t, helper string) {
 
 func startHandler(m *tbot.Message) {
 	if m.ChatType == model.ChatTypePrivate {
-		m.Reply(fileReader("assets/start.txt"))
+		m.Reply(fileReader("assets/start.txt"), tbot.WithMarkdown)
 		m.Reply(fileReader("assets/help.txt"))
 	}
 }
