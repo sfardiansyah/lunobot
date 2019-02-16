@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html"
 	"io/ioutil"
 	"log"
@@ -58,13 +59,15 @@ func main() {
 
 	bot.Handle("/update", "update")
 	bot.Handle("/help", fileReader("assets/help.txt"))
-	bot.HandleFunc("/infoluno", infoHandler)
+	bot.HandleFunc("/infoluno", func(m *tbot.Message) {
+		replyWithInline(m, getInfo(), "Buka LUNO Wallet")
+	})
 	bot.HandleFunc("/start", startHandler)
 	bot.HandleFunc("/fee", func(m *tbot.Message) {
-		feeHandler(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
+		replyWithInline(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
 	})
 	bot.HandleFunc("/convert", func(m *tbot.Message) {
-		feeHandler(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
+		replyWithInline(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
 	})
 
 	// bot.HandleDefault(defaultHandler)
@@ -74,7 +77,7 @@ func main() {
 	}
 }
 
-func infoHandler(m *tbot.Message) {
+func getInfo() string {
 	idTime, _ := time.LoadLocation("Asia/Jakarta")
 	date := time.Now().In(idTime).Format(time.RFC1123)
 
@@ -85,7 +88,7 @@ func infoHandler(m *tbot.Message) {
 	btcVol := getVolume("XBTIDR")
 	ethVol := getVolume("ETHXBT")
 
-	m.Replyf(fileReader("assets/info.txt"), date, btc, btcVol, btcH, btcL, eth, ethVol, ethH, ethL)
+	return fmt.Sprintf(fileReader("assets/info.txt"), date, btc, btcVol, btcH, btcL, eth, ethVol, ethH, ethL)
 }
 
 func getVolume(pair string) string {
@@ -151,7 +154,7 @@ func getPrice(pair string) string {
 	return humanize.Commaf(price)
 }
 
-func feeHandler(m *tbot.Message, t, helper string) {
+func replyWithInline(m *tbot.Message, t, helper string) {
 	str := strings.Split(t, "||")
 	btn := []map[string]string{map[string]string{helper: str[1]}}
 
