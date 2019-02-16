@@ -20,12 +20,14 @@ func main() {
 
 	bot.Handle("/update", "update")
 	bot.Handle("/help", fileReader("assets/help.txt"))
-	bot.HandleFunc("/start", startHandler)
 	bot.Handle("/infoluno", "infoluno")
+	bot.HandleFunc("/start", startHandler)
 	bot.HandleFunc("/fee", func(m *tbot.Message) {
 		feeHandler(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
 	})
-	bot.Handle("/convert", fileReader("assets/convert.txt"))
+	bot.HandleFunc("/convert", func(m *tbot.Message) {
+		feeHandler(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
+	})
 
 	// bot.HandleDefault(defaultHandler)
 
