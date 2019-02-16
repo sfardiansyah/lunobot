@@ -3,13 +3,13 @@
 BTC
 Harga: IDR %s
 Volume 24 jam terakhir: ___ BTC
-High: ___
-Low: ___
+High: IDR %s
+Low: IDR %s
 
 ETH
 Harga: IDR %s
 Volume 24 jam terakhir: ___ ETH
-High: ___
-Low: ___
+High: IDR %s
+Low: IDR %s
 
 Beli dan jual BTC dan ETH Anda di Luno: https://www.luno.com/wallet/accounts

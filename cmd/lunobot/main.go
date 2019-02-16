@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -17,19 +18,14 @@ import (
 
 // PriceCandle ...
 type PriceCandle struct {
-	Pair     string   `json:"pair"`
-	Duration uint16   `json:"duration"`
-	Candles  []Candle `json:"candles"`
+	Candles []Candle `json:"candles"`
 }
 
 // Candle ...
 type Candle struct {
 	Timestamp time.Time `json:"timestamp"`
-	Open      float32   `json:"open"`
-	Close     float32   `json:"close"`
-	High      float32   `json:"high"`
-	Low       float32   `json:"low"`
-	Volume    float32   `json:"volume"`
+	High      float64   `json:"high"`
+	Low       float64   `json:"low"`
 }
 
 // Ticker ...
@@ -84,13 +80,39 @@ func main() {
 }
 
 func infoHandler(m *tbot.Message) {
-	btc := humanize.Commaf(getPrice("XBTIDR"))
-	eth := humanize.Commaf(getPrice("ETHIDR"))
+	btc := getPrice("XBTIDR")
+	eth := getPrice("ETHIDR")
+	btcH, btcL := getHiLo("XBTIDR")
+	ethH, ethL := getHiLo("ETHIDR")
 
-	m.Replyf(fileReader("assets/info.txt"), btc, eth)
+	m.Replyf(fileReader("assets/info.txt"), btc, btcH, btcL, eth, ethH, ethL)
 }
 
-func getPrice(pair string) float64 {
+func getHiLo(pair string) (string, string) {
+	p := new(PriceCandle)
+	date := time.Now().Add(-24 * time.Hour).Unix()
+
+	r, err := http.Get(lunoChartCandleURL + "?pair=" + pair + "&since=" + strconv.FormatInt(date, 64))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	json.NewDecoder(r.Body).Decode(p)
+
+	var hi, lo float64
+	for _, candle := range p.Candles {
+		if candle.High > hi {
+			hi = candle.High
+		}
+		if candle.Low < lo {
+			lo = candle.Low
+		}
+	}
+
+	return humanize.Commaf(hi), humanize.Commaf(lo)
+}
+
+func getPrice(pair string) string {
 	p := new(PairResponse)
 	b := pair[:3]
 	c := pair[3:]
@@ -109,7 +131,7 @@ func getPrice(pair string) float64 {
 		}
 	}
 
-	return price
+	return humanize.Commaf(price)
 }
 
 func feeHandler(m *tbot.Message, t, helper string) {
