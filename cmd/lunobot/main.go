@@ -29,11 +29,7 @@ type Candle struct {
 
 // Ticker ...
 type Ticker struct {
-	Ask       float64   `json:"ask,string"`
-	Timestamp time.Time `json:"timestamp"`
-	Bid       float64   `json:"bid,string"`
-	Volume    float64   `json:"rolling_24_hour_volume,string"`
-	LastTrade float64   `json:"last_trade,string"`
+	Volume float64 `json:"rolling_24_hour_volume,string"`
 }
 
 // PairResponse ...
