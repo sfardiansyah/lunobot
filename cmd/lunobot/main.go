@@ -24,8 +24,16 @@ func main() {
 	bot.Handle("/fee", fileReader("assets/fee.txt"))
 	bot.Handle("/convert", fileReader("assets/convert.txt"))
 
+	bot.HandleDefault(defaultHandler)
+
 	if err := bot.ListenAndServe(); err != nil {
 		log.Fatal(err)
+	}
+}
+
+func defaultHandler(m *tbot.Message) {
+	if len(m.Vars["new_chat_members"]) > 0 {
+		m.Reply("Halo!")
 	}
 }
 
