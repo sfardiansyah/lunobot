@@ -50,7 +50,7 @@ type PairResponse struct {
 type Pair struct {
 	BaseCode    string  `json:"baseCode"`
 	CounterCode string  `json:"counterCode"`
-	Price       float32 `json:"price"`
+	Price       float32 `json:"price,string"`
 }
 
 const (
