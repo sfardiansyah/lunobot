@@ -21,6 +21,24 @@
 			"revisionTime": "2018-12-25T21:56:58Z"
 		},
 		{
+			"checksumSHA1": "aL0XcKaPOXuKk7MLju4akmXL10g=",
+			"path": "github.com/sfardiansyah/tbot",
+			"revision": "e280e597d0e361d0105a8091166c175bc8d273a2",
+			"revisionTime": "2019-02-16T18:04:55Z"
+		},
+		{
+			"checksumSHA1": "WcwrlUrIWs8saobgX/++EenCGm0=",
+			"path": "github.com/sfardiansyah/tbot/internal/adapter",
+			"revision": "e280e597d0e361d0105a8091166c175bc8d273a2",
+			"revisionTime": "2019-02-16T18:04:55Z"
+		},
+		{
+			"checksumSHA1": "gO1BNylKdhzdkq410uPoMOt+y9s=",
+			"path": "github.com/sfardiansyah/tbot/model",
+			"revision": "e280e597d0e361d0105a8091166c175bc8d273a2",
+			"revisionTime": "2019-02-16T18:04:55Z"
+		},
+		{
 			"checksumSHA1": "t8jzPFIv4DNACv+cuZoigNmjPLQ=",
 			"path": "github.com/technoweenie/multipartstreamer",
 			"revision": "a90a01d73ae432e2611d178c18367fbaa13e0154",
@@ -31,12 +49,6 @@
 			"path": "github.com/yanzay/log",
 			"revision": "87352bb235060cca8427c8f9fdd68c83b38ba461",
 			"revisionTime": "2016-04-19T14:48:09Z"
-		},
-		{
-			"checksumSHA1": "B6AhfMmG35loc+pMrCbOE22+4BM=",
-			"path": "github.com/yanzay/tbot",
-			"revision": "947e188b1c8c9cf5a5a7f157561df22a6525164c",
-			"revisionTime": "2018-12-15T20:28:16Z"
 		},
 		{
 			"checksumSHA1": "EXVaofrZ/s4bH9CKYQNroz4EOFg=",

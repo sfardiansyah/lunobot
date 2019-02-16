@@ -13,8 +13,8 @@ import (
 	"time"
 
 	humanize "github.com/dustin/go-humanize"
-	"github.com/yanzay/tbot"
-	"github.com/yanzay/tbot/model"
+	"github.com/sfardiansyah/tbot"
+	"github.com/sfardiansyah/tbot/model"
 )
 
 // PriceCandle ...
