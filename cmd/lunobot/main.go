@@ -92,7 +92,7 @@ func getHiLo(pair string) (string, string) {
 	p := new(PriceCandle)
 	date := time.Now().Add(-24 * time.Hour).Unix()
 
-	r, err := http.Get(lunoChartCandleURL + "?pair=" + pair + "&since=" + strconv.FormatInt(date, 64))
+	r, err := http.Get(lunoChartCandleURL + "?pair=" + pair + "&since=" + strconv.FormatInt(date, 10))
 	if err != nil {
 		log.Fatal(err)
 	}
