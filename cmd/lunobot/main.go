@@ -83,8 +83,25 @@ func infoHandler(m *tbot.Message) {
 	eth := getPrice("ETHIDR")
 	btcH, btcL := getHiLo("XBTIDR")
 	ethH, ethL := getHiLo("ETHIDR")
+	btcVol := getVolume("XBTIDR")
+	ethVol := getVolume("ETHXBT")
 
-	m.Replyf(fileReader("assets/info.txt"), btc, btcH, btcL, eth, ethH, ethL)
+	m.Replyf(fileReader("assets/info.txt"), btc, btcVol, btcH, btcL, eth, ethVol, ethH, ethL)
+}
+
+func getVolume(pair string) string {
+	t := new(Ticker)
+
+	r, err := http.Get(lunoAPIURL + "?pair=" + pair)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = json.NewDecoder(r.Body).Decode(t); err != nil {
+		log.Fatal(err)
+	}
+
+	return humanize.CommafWithDigits(t.Volume, 8)
 }
 
 func getHiLo(pair string) (string, string) {
