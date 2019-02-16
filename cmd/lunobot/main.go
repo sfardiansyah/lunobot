@@ -35,7 +35,7 @@ func defaultHandler(m *tbot.Message) {
 	// if len(m.Vars["new_chat_members"]) > 0 {
 	// 	m.Reply("Halo!")
 	// }
-	log.Printf("%+v\n", m)
+	m.Reply(string(m.Type))
 }
 
 func startHandler(m *tbot.Message) {
