@@ -32,10 +32,15 @@ func main() {
 }
 
 func feeHandler(m *tbot.Message) {
-	buttons := []map[string]string{make(map[string]string)}
+	// buttons := []map[string]string{make(map[string]string)}
 	// buttons := make([]map[string]string, 1, 1)
-	buttons[0]["fee"] = "https://www.luno.com/id/countries/ID"
-	m.ReplyInlineKeyboard(fileReader("assets/fee.txt"), buttons)
+	// buttons[0]["fee"] = "https://www.luno.com/id/countries/ID"
+	buttons := [][]string{
+		{"Some", "Test", "Buttons"},
+		{"Another", "Row"},
+	}
+	m.ReplyKeyboard("Buttons example", buttons)
+	// m.ReplyInlineKeyboard(fileReader("assets/fee.txt"), buttons, )
 }
 
 // func defaultHandler(m *tbot.Message) {
