@@ -2,6 +2,9 @@ package bot
 
 import (
 	"fmt"
+	"html"
+	"io/ioutil"
+	"log"
 	"regexp"
 )
 
@@ -26,4 +29,13 @@ func parseVariables(pattern string) []string {
 func replaceVariables(pattern string) string {
 	re := regexp.MustCompile("{[A-Za-z0-9_]*}")
 	return re.ReplaceAllString(pattern, "(.*)")
+}
+
+func fileReader(dir string) string {
+	b, err := ioutil.ReadFile(dir)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return html.UnescapeString(string(b))
 }

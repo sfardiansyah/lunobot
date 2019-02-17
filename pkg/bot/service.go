@@ -31,8 +31,15 @@ func (h *handler) Handle(u tgbotapi.Update) {
 }
 
 func (h *handler) handleJoin(m *tgbotapi.Message) {
-	msg := tgbotapi.NewMessage(m.Chat.ID, "Halo")
-	if _, err := h.a.Send(msg); err != nil {
+	if err := h.replyWithFile(m.Chat.ID, "assets/join.txt"); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (h *handler) replyWithFile(cID int64, dir string) error {
+	msg := tgbotapi.NewMessage(cID, fileReader(dir))
+	if _, err := h.a.Send(msg); err != nil {
+		return err
+	}
+	return nil
 }
