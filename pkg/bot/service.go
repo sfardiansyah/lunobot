@@ -2,6 +2,7 @@ package bot
 
 import (
 	"log"
+	"regexp"
 	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -28,7 +29,14 @@ func (h *handler) Handle(u tgbotapi.Update) {
 			return
 		}
 		pattern, _ := parse(h.trimBotName(u.Message.Text))
-		log.Println(pattern)
+
+		re := regexp.MustCompile(pattern)
+		matches := re.FindStringSubmatch(u.Message.Text)
+
+		if len(matches) > 0 {
+			log.Println(matches)
+		}
+
 		cID := u.Message.Chat.ID
 
 		switch pattern {
