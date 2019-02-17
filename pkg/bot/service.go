@@ -27,7 +27,7 @@ func (h *handler) Handle(u tgbotapi.Update) {
 			h.handleJoin(u.Message)
 			return
 		}
-		pattern, _ := parse(u.Message.Text)
+		pattern, _ := parse(h.trimBotName(u.Message.Text))
 		cID := u.Message.Chat.ID
 
 		switch pattern {
@@ -102,4 +102,13 @@ func (h *handler) replyWithFile(cID int64, dir string) error {
 		return err
 	}
 	return nil
+}
+
+func (h *handler) trimBotName(message string) string {
+	parts := strings.SplitN(message, " ", 2)
+	command := parts[0]
+	command = strings.TrimSuffix(command, "@"+h.a.Self.UserName)
+	command = strings.TrimSuffix(command, "@"+h.a.Self.FirstName)
+	parts[0] = command
+	return strings.Join(parts, " ")
 }
