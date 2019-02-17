@@ -2,6 +2,7 @@ package bot
 
 import (
 	"log"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
@@ -31,9 +32,25 @@ func (h *handler) Handle(u tgbotapi.Update) {
 }
 
 func (h *handler) handleJoin(m *tgbotapi.Message) {
-	if err := h.replyWithFile(m.Chat.ID, "assets/join.txt"); err != nil {
+	var arr []string
+	for _, member := range *m.NewChatMembers {
+		arr = append(arr, member.FirstName)
+	}
+
+	members := strings.Join(arr, ", ")
+	str := strings.Replace(fileReader("assets/join.txt"), "[Name]", members, 1)
+
+	if err := h.replyText(m.Chat.ID, str); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (h *handler) replyText(cID int64, text string) error {
+	msg := tgbotapi.NewMessage(cID, text)
+	if _, err := h.a.Send(msg); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (h *handler) replyWithFile(cID int64, dir string) error {
