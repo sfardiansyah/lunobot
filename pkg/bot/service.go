@@ -46,6 +46,8 @@ func (h *handler) Handle(u tgbotapi.Update) {
 				h.replyWithInline(cID, fileReader("assets/convert.txt"), "Luno Price Chart")
 			case "/help":
 				h.replyText(cID, fileReader("assets/help.txt"))
+			case "infoluno":
+				h.replyWithInline(cID, getInfo(), "Buka Luno Wallet")
 			}
 		}
 	}
@@ -54,7 +56,7 @@ func (h *handler) Handle(u tgbotapi.Update) {
 func (h *handler) handlerStart(m *tgbotapi.Message) {
 	if m.Chat.IsPrivate() {
 		h.replyText(m.Chat.ID, fileReader("assets/start.txt"))
-		h.replyText(m.Chat.ID, fileReader("assets/start.txt"))
+		h.replyText(m.Chat.ID, fileReader("assets/help.txt"))
 	}
 }
 
@@ -102,14 +104,6 @@ func (h *handler) replyText(cID int64, text string) {
 	if _, err := h.a.Send(msg); err != nil {
 		log.Fatal(err)
 	}
-}
-
-func (h *handler) replyWithFile(cID int64, dir string) error {
-	msg := tgbotapi.NewMessage(cID, fileReader(dir))
-	if _, err := h.a.Send(msg); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (h *handler) trimBotName(message string) string {
