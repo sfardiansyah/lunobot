@@ -27,7 +27,26 @@ func (h *handler) Handle(u tgbotapi.Update) {
 			h.handleJoin(u.Message)
 			return
 		}
-		// pattern, variables := parse(u.Message.Text)
+		pattern, _ := parse(u.Message.Text)
+		cID := u.Message.Chat.ID
+
+		switch pattern {
+		case "/start":
+			h.handlerStart(u.Message)
+		case "/fee":
+			h.replyWithInline(cID, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya Luno")
+		case "/convert":
+			h.replyWithInline(cID, fileReader("assets/convert.txt"), "Luno Price Chart")
+		case "/help":
+			h.replyText(cID, fileReader("assets/help.txt"))
+		}
+	}
+}
+
+func (h *handler) handlerStart(m *tgbotapi.Message) {
+	if m.Chat.IsPrivate() {
+		h.replyText(m.Chat.ID, fileReader("assets/start.txt"))
+		h.replyText(m.Chat.ID, fileReader("assets/start.txt"))
 	}
 }
 
@@ -40,7 +59,7 @@ func (h *handler) handleJoin(m *tgbotapi.Message) {
 	members := strings.Join(arr, ", ")
 	str := strings.Replace(fileReader("assets/join.txt"), "[Name]", members, 1)
 
-	if err := h.replyWithInline(m.Chat.ID, str, "Daftar LUNO"); err != nil {
+	if err := h.replyWithInline(m.Chat.ID, str, "Daftar Luno"); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -68,14 +87,13 @@ func (h *handler) replyInlineKeyboard(cID int64, text string, buttons []map[stri
 	return nil
 }
 
-func (h *handler) replyText(cID int64, text string) error {
+func (h *handler) replyText(cID int64, text string) {
 	msg := tgbotapi.NewMessage(cID, text)
-	msg.DisableWebPagePreview = false
+	msg.ParseMode = tgbotapi.ModeMarkdown
 
 	if _, err := h.a.Send(msg); err != nil {
-		return err
+		log.Fatal(err)
 	}
-	return nil
 }
 
 func (h *handler) replyWithFile(cID int64, dir string) error {
