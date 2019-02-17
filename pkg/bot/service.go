@@ -28,10 +28,11 @@ func (h *handler) Handle(u tgbotapi.Update) {
 			h.handleJoin(u.Message)
 			return
 		}
-		pattern, _ := parse(h.trimBotName(u.Message.Text))
+		path := h.trimBotName(u.Message.Text)
+		pattern, _ := parse(path)
 
 		re := regexp.MustCompile(pattern)
-		matches := re.FindStringSubmatch(u.Message.Text)
+		matches := re.FindStringSubmatch(path)
 
 		if len(matches) > 0 {
 			log.Println(matches)
