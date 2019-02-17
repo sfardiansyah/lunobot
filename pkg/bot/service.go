@@ -35,20 +35,18 @@ func (h *handler) Handle(u tgbotapi.Update) {
 		matches := re.FindStringSubmatch(path)
 
 		if len(matches) > 0 {
-			log.Println(matches)
-		}
+			cID := u.Message.Chat.ID
 
-		cID := u.Message.Chat.ID
-
-		switch pattern {
-		case "/start":
-			h.handlerStart(u.Message)
-		case "/fee":
-			h.replyWithInline(cID, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya Luno")
-		case "/convert":
-			h.replyWithInline(cID, fileReader("assets/convert.txt"), "Luno Price Chart")
-		case "/help":
-			h.replyText(cID, fileReader("assets/help.txt"))
+			switch matches[0] {
+			case "/start":
+				h.handlerStart(u.Message)
+			case "/fee":
+				h.replyWithInline(cID, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya Luno")
+			case "/convert":
+				h.replyWithInline(cID, fileReader("assets/convert.txt"), "Luno Price Chart")
+			case "/help":
+				h.replyText(cID, fileReader("assets/help.txt"))
+			}
 		}
 	}
 }
