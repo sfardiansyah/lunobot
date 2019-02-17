@@ -28,6 +28,7 @@ func (h *handler) Handle(u tgbotapi.Update) {
 			return
 		}
 		pattern, _ := parse(h.trimBotName(u.Message.Text))
+		log.Println(pattern)
 		cID := u.Message.Chat.ID
 
 		switch pattern {
