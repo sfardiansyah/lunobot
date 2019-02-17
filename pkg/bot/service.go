@@ -47,6 +47,8 @@ func (h *handler) handleJoin(m *tgbotapi.Message) {
 
 func (h *handler) replyText(cID int64, text string) error {
 	msg := tgbotapi.NewMessage(cID, text)
+	msg.DisableWebPagePreview = false
+
 	if _, err := h.a.Send(msg); err != nil {
 		return err
 	}
