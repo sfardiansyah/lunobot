@@ -12,6 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/sfardiansyah/lunobot/pkg/bot"
+
 	humanize "github.com/dustin/go-humanize"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/sfardiansyah/tbot"
@@ -58,6 +60,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	h := bot.NewHandler(app)
+
 	app.Debug = true
 
 	info, err := app.GetWebhookInfo()
@@ -77,31 +81,32 @@ func main() {
 
 	for update := range updates {
 		log.Printf("%+v\n", update.Message)
+		h.Handle(update)
 	}
 
-	bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
-	if err != nil {
-		log.Fatal(err)
-	}
+	// bot, err := tbot.NewServer(os.Getenv("TELEGRAM_TOKEN"), tbot.WithWebhook("https://luno-bot.herokuapp.com/", ":"+os.Getenv("PORT")))
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	bot.Handle("/update", "update")
-	bot.Handle("/help", fileReader("assets/help.txt"))
-	bot.HandleFunc("/infoluno", func(m *tbot.Message) {
-		replyWithInline(m, getInfo(), "Buka LUNO Wallet")
-	})
-	bot.HandleFunc("/start", startHandler)
-	bot.HandleFunc("/fee", func(m *tbot.Message) {
-		replyWithInline(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
-	})
-	bot.HandleFunc("/convert", func(m *tbot.Message) {
-		replyWithInline(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
-	})
+	// bot.Handle("/update", "update")
+	// bot.Handle("/help", fileReader("assets/help.txt"))
+	// bot.HandleFunc("/infoluno", func(m *tbot.Message) {
+	// 	replyWithInline(m, getInfo(), "Buka LUNO Wallet")
+	// })
+	// bot.HandleFunc("/start", startHandler)
+	// bot.HandleFunc("/fee", func(m *tbot.Message) {
+	// 	replyWithInline(m, fileReader("assets/fee.txt"), "Kunjungi Rincian Biaya LUNO")
+	// })
+	// bot.HandleFunc("/convert", func(m *tbot.Message) {
+	// 	replyWithInline(m, fileReader("assets/convert.txt"), "Kunjungi LUNO Price Chart")
+	// })
 
-	bot.HandleDefault(defaultHandler)
+	// bot.HandleDefault(defaultHandler)
 
-	if err := bot.ListenAndServe(); err != nil {
-		log.Fatal(err)
-	}
+	// if err := bot.ListenAndServe(); err != nil {
+	// 	log.Fatal(err)
+	// }
 }
 
 func getInfo() string {
