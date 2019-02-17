@@ -18,7 +18,7 @@ func main() {
 
 	h := bot.NewHandler(app)
 
-	app.Debug = true
+	app.Debug = false
 
 	info, err := app.GetWebhookInfo()
 	if err != nil {
@@ -35,7 +35,6 @@ func main() {
 	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 
 	for update := range updates {
-		log.Printf("%+v\n", update.Message)
 		h.Handle(update)
 	}
 }
