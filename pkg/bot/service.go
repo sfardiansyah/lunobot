@@ -40,9 +40,32 @@ func (h *handler) handleJoin(m *tgbotapi.Message) {
 	members := strings.Join(arr, ", ")
 	str := strings.Replace(fileReader("assets/join.txt"), "[Name]", members, 1)
 
-	if err := h.replyText(m.Chat.ID, str); err != nil {
+	if err := h.replyWithInline(m.Chat.ID, str, "Daftar LUNO"); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (h *handler) replyWithInline(cID int64, text, helper string) error {
+	str := strings.Split(text, "||")
+	btn := []map[string]string{map[string]string{helper: str[1]}}
+
+	if err := h.replyInlineKeyboard(cID, str[0], btn); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *handler) replyInlineKeyboard(cID int64, text string, buttons []map[string]string) error {
+	msg := tgbotapi.NewMessage(cID, text)
+	btns := inlineURLButtonsFromStrings(buttons)
+
+	msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup(btns...)
+	msg.ParseMode = tgbotapi.ModeMarkdown
+
+	if _, err := h.a.Send(msg); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (h *handler) replyText(cID int64, text string) error {

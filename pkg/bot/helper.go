@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"regexp"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 func parse(m string) (string, []string) {
@@ -38,4 +40,16 @@ func fileReader(dir string) string {
 	}
 
 	return html.UnescapeString(string(b))
+}
+
+func inlineURLButtonsFromStrings(strs []map[string]string) [][]tgbotapi.InlineKeyboardButton {
+	btns := make([][]tgbotapi.InlineKeyboardButton, len(strs))
+	for i, buttonRow := range strs {
+		btnsRow := []tgbotapi.InlineKeyboardButton{}
+		for buttonText, buttonURL := range buttonRow {
+			btnsRow = append(btnsRow, tgbotapi.NewInlineKeyboardButtonURL(buttonText, buttonURL))
+		}
+		btns[i] = tgbotapi.NewInlineKeyboardRow(btnsRow...)
+	}
+	return btns
 }
