@@ -46,6 +46,8 @@ func (h *handler) Handle(u tgbotapi.Update) {
 				h.replyWithInline(cID, fileReader("assets/convert.txt"), "Luno Price Chart")
 			case "/help":
 				h.replyText(cID, fileReader("assets/help.txt"))
+			case "/update":
+				h.replyText(cID, fileReader("assets/update.txt"))
 			case "/infoluno":
 				h.replyWithInline(cID, getInfo(), "Buka Luno Wallet")
 			}
