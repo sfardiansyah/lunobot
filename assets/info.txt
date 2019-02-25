@@ -1,4 +1,4 @@
-#InfoLuno untuk Bitcoin dan Ethereum @ %s 
+#InfoHarga untuk Bitcoin dan Ethereum @ %s 
 
 BTC
 Harga: IDR %s
