@@ -70,17 +70,17 @@ func getHiLo(pair string) (string, string) {
 		log.Fatal(err)
 	}
 
-	var hi, lo float64 = 0, p.Candles[0].Low
+	var hi, lo int64 = 0, int64(p.Candles[0].Low)
 	for _, candle := range p.Candles {
-		if candle.High > hi {
-			hi = candle.High
+		if int64(candle.High) > hi {
+			hi = int64(candle.High)
 		}
-		if candle.Low < lo {
-			lo = candle.Low
+		if int64(candle.Low) < lo {
+			lo = int64(candle.Low)
 		}
 	}
 
-	return humanize.Commaf(hi), humanize.Commaf(lo)
+	return humanize.Comma(hi), humanize.Comma(lo)
 }
 
 func getPrice(pair string) string {
