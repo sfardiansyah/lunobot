@@ -95,12 +95,12 @@ func getPrice(pair string) string {
 
 	json.NewDecoder(r.Body).Decode(p)
 
-	var price float64
+	var price int64
 	for _, pair := range p.Pairs {
 		if pair.BaseCode == b && pair.CounterCode == c {
-			price = pair.Price
+			price = int64(pair.Price)
 		}
 	}
 
-	return humanize.Commaf(price)
+	return humanize.Comma(price)
 }

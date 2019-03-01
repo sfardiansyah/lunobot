@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/sfardiansyah/lunobot/pkg/bot"
-
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/sfardiansyah/lunobot/pkg/bot"
+	"github.com/sfardiansyah/lunobot/pkg/http/rest"
 )
 
 func main() {
@@ -17,6 +17,7 @@ func main() {
 	}
 
 	h := bot.NewHandler(app)
+	r := rest.Handler()
 
 	app.Debug = false
 
@@ -32,7 +33,7 @@ func main() {
 	}
 
 	updates := app.ListenForWebhook("/")
-	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	go http.ListenAndServe(":"+os.Getenv("PORT"), r)
 
 	for update := range updates {
 		h.Handle(update)
