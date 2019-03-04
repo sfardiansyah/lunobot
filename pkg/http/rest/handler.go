@@ -9,8 +9,10 @@ import (
 // Handler ...
 func Handler() http.Handler {
 	r := mux.NewRouter()
-	r.HandleFunc("/", handler())
-	r.HandleFunc("/admin", adminHandler())
+	s := r.PathPrefix("/admin").Subrouter()
+
+	s.HandleFunc("/", handler())
+	s.HandleFunc("/admin", adminHandler())
 
 	return r
 }
