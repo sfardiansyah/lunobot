@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -11,8 +12,9 @@ import (
 
 // PageVariables ...
 type PageVariables struct {
-	Date string
-	Time string
+	Date   string
+	Time   string
+	Params url.Values
 }
 
 // Handler ...
@@ -31,10 +33,12 @@ func handler() func(w http.ResponseWriter, r *http.Request) {
 
 func adminHandler() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		params := r.URL.Query()
 		now := time.Now()              // find the time right now
 		HomePageVars := PageVariables{ //store the date and time in a struct
-			Date: now.Format("02-01-2006"),
-			Time: now.Format("15:04:05"),
+			Date:   now.Format("02-01-2006"),
+			Time:   now.Format("15:04:05"),
+			Params: params,
 		}
 
 		t, err := template.ParseFiles("web/homepage.html") //parse the html file homepage.html
