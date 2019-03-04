@@ -14,7 +14,7 @@ func Handler() http.Handler {
 	s.HandleFunc("/", handler())
 	s.HandleFunc("/admin", adminHandler())
 
-	return r
+	return s
 }
 
 func handler() func(w http.ResponseWriter, r *http.Request) {
