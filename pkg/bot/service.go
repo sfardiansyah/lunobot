@@ -51,7 +51,7 @@ func (h *handler) Handle(u tgbotapi.Update) {
 			case "/faq":
 				h.replyText(cID, fileReader("assets/faq.txt"))
 			case "/infoharga":
-				h.replyWithInline(cID, getInfo(), "Buka Luno Wallet")
+				h.replyWithInline(cID, getInfo(), "Buka Akun Luno")
 			}
 		}
 	}
