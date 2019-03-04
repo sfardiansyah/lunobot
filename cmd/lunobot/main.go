@@ -32,6 +32,10 @@ func main() {
 	}
 
 	updates := app.ListenForWebhook("/")
+	http.HandleFunc("/admin", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hehehe"))
+	})
+
 	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 
 	for update := range updates {
