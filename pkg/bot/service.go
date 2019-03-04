@@ -25,7 +25,7 @@ func NewHandler(a *tgbotapi.BotAPI) Handler {
 func (h *handler) Handle(u tgbotapi.Update) {
 	if u.Message != nil {
 		if u.Message.NewChatMembers != nil {
-			// h.handleJoin(u.Message)
+			h.handleJoin(u.Message)
 			return
 		}
 		path := h.trimBotName(u.Message.Text)
