@@ -33,7 +33,7 @@ func main() {
 	}
 
 	updates := app.ListenForWebhook("/")
-	http.Handle("/", r)
+	http.Handle("/admin", r)
 
 	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 

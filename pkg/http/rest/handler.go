@@ -9,7 +9,8 @@ import (
 // Handler ...
 func Handler() http.Handler {
 	r := mux.NewRouter()
-	r.HandleFunc("/admin", handler())
+	r.HandleFunc("/", handler())
+	r.HandleFunc("/admin", adminHandler())
 
 	return r
 }
@@ -17,5 +18,11 @@ func Handler() http.Handler {
 func handler() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hohoho"))
+	}
+}
+
+func adminHandler() func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hehehe"))
 	}
 }
